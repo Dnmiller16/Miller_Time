@@ -12,13 +12,25 @@ int bc=2;
 int dc=1;
 int cc=0;
 
-void setup()                    
+void setup()  
 {
-  MeggyJrSimpleSetup();     
+   MeggyJrSimpleSetup(); 
+   Serial.begin (9600);
 }
 
-void loop()
+void loop ()
+
 {
+  Serial.print ("hb is ");
+  Serial.println (hb);
+  Serial.print ("h is ");
+  Serial.println (h);
+  Serial.println ();
+  Serial.print ("mb is ");
+  Serial.println (mb);
+  Serial.print ("m is ");
+  Serial.println (m);
+  Serial.println (); 
 CheckButtonsPress();
 
 if(Button_Right)
@@ -42,7 +54,8 @@ CheckButtonsDown();
 
  if(Button_Up)
     { 
-      s=481;
+      m++;
+      c=0;
       sx=3;
       sy=7;
     }
@@ -50,10 +63,11 @@ CheckButtonsDown();
   if(Button_Down)
     { 
       m--;
+      c=0;
       sx=3;
       sy=7;
     }
- 
+//GOOD 
 if (c==20)
  if (sy==7)
    if (sx<7)
@@ -89,7 +103,8 @@ if (s>480)
     s=0;
     m++;
   }
-//PLACEHOLDER
+//GOOD END
+//FIX START
 if (m<0)
   {
     mb--;
@@ -133,7 +148,8 @@ if (hb==0)
       mb=0;
       m=0;
     }
-//END
+//FIX END
+//GOOD
 if (m==10)
   {
     m=0;
@@ -151,15 +167,7 @@ if (h==10)
     m=0;
     mb=0;
   }
-if (h==4)
-  if (hb==2)
-  {
-    h=1;
-    hb=0;
-    m=0;
-    mb=0;
-  }
-  
+//GOOD END
 if(h==1)
   {
    DrawPx(3,2,1);
@@ -293,14 +301,22 @@ if(hb==2)
    DrawPx(2,3,1);
   }
 //if(cc==4)
-  if(bc>15)
-    {
-     bc=1;
-    }
+if(bc>15)
+   {
+    bc=1;
+   }
+if(bc<1)
+   {
+    bc=15;
+   }
 //if(cc==4)
-  if(dc>15)
-    {
-     dc=1;
+if(dc>15)
+   {
+    dc=1;
+    }
+if(dc<1)
+   {
+    dc=15;
     }
   DrawPx(5,0,bc);
   DrawPx(7,6,bc);
