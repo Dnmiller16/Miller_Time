@@ -1,31 +1,30 @@
 #include <MeggyJrSimple.h>    
 
-int sx=4;
-int sy=7;
-int s=0;
-int m=0;
-int mb=0;
-int h=1;
-int hb=0;
-int c=0;
-int bc=2;
-int dc=1;
-int cc=0;
+int sx=4; //seccond x value (dot)
+int sy=7; //seccond y value (dot)
+int s=0; //secconds counter
+int m=0; //minutes 1 place counter
+int mb=0; //minute tens place counter
+int h=1; // hour ones place counter
+int hb=0; //hour tens place counter
+int c=0; // counter (advances dot every seccond)
+int bc=2; //border color
+int dc=1; //dot color
+int cc=0; //Not used
 
 void setup()  
 {
    MeggyJrSimpleSetup(); 
-   Serial.begin (9600);
+   Serial.begin (9600);  
 }
 
 void loop ()
 
 {
-  Serial.print ("hb is ");
-  Serial.println (hb);
+  Serial.print ("s is ");
+  Serial.println (s);
   Serial.print ("h is ");
   Serial.println (h);
-  Serial.println ();
   Serial.print ("mb is ");
   Serial.println (mb);
   Serial.print ("m is ");
@@ -55,7 +54,7 @@ CheckButtonsDown();
  if(Button_Up)
     { 
       m++;
-      c=0;
+      s=0;
       sx=3;
       sy=7;
     }
@@ -63,11 +62,11 @@ CheckButtonsDown();
   if(Button_Down)
     { 
       m--;
-      c=0;
+      s=0;
       sx=3;
       sy=7;
     }
-//GOOD 
+// advances dot around the screen once a minute 
 if (c==20)
  if (sy==7)
    if (sx<7)
@@ -98,13 +97,13 @@ if (c==20)
     {
       sx=1;
     }
-if (s>480)
+//adds 1 minute every time dot goes around once
+if (s==480)
   {
     s=0;
     m++;
   }
-//GOOD END
-//FIX START
+//makes hours + minutes go down when time is set
 if (m<0)
   {
     mb--;
@@ -148,8 +147,8 @@ if (hb==0)
       mb=0;
       m=0;
     }
-//FIX END
-//GOOD
+
+//advances time
 if (m==10)
   {
     m=0;
@@ -167,7 +166,8 @@ if (h==10)
     m=0;
     mb=0;
   }
-//GOOD END
+
+//displays time as pix
 if(h==1)
   {
    DrawPx(3,2,1);
